@@ -1,19 +1,28 @@
 <template>
 
 <div class="container ">
+    
+    <div class="row">
+        <div class="col s12 m12 black white-text error" v-if="error != null">
+            <i class="material-icons">mood_bad</i>
+            Nope.             {{error}}
+            <i class="material-icons">error_outline</i>
+        </div>
+    </div>
+    
     <div class="row">
     
     <div class="card col s5 m5 deep-orange lighten-2">
         <div class="card-title white-text"><h4 id="tit1"><i class="large material-icons">face</i> Sign in</h4></div>
         
         <div class="card-body">            
-            <form id="login" class="">
+            <form id="login" class="" @submit.prevent="login">
                 <!--<p><i class="material-icons">account_circle</i> <label for="username">Username:</label> <input id="username" type="text" class="validate"></p>-->
                 
-                <i class="material-icons">email</i> <label for="email">Email:</label> <input id="email" min="8" type="email" class="validate" required>
+                <i class="material-icons">email</i> <label for="email">Email:</label> <input id="email" min="8" type="email" class="validate" required v-model="login_email">
 
                 <i class="material-icons">lock</i> <label for="login_pass" min="8" class="grey-text validate">Password:</label>
-                <input type="password" id="login_pass" class="validate" required/>
+                <input type="password" id="login_pass" class="validate" required v-model="login_pass"/>
                     
                 <p><button class="btn waves-effect waves-light red nice" type="submit" name="action">Login <i class="material-icons prefix">near_me</i></button></p>
             </form>
@@ -76,13 +85,9 @@ export default {
     methods: {
         login() {
             console.log('login');
-            let entra= document.getElementById('email');
-
-            if(entra != this.$store.state.user){
-                alert('This user does not exist')
-            }
+            console.log(this.login_email);
             
-            const datos_log={login_email: this.login_email, login_pass: this.login_pass};
+            const datos_log={email: this.login_email, password: this.login_pass};
             this.$store.dispatch('login', datos_log);
         },
 
@@ -97,6 +102,7 @@ export default {
                 confirm.setCustomValidity('Check your spelling, your passwords don´t match');
                 return
             }
+            
             //ingresar usuario
             const datos= {email: this.register_email, password: this.register_pass, user: this.register_user};
             this.$store.dispatch('register', datos);
@@ -109,6 +115,11 @@ export default {
 
 <style scoped>
 
+.error .material-icons{
+    font-size: 40px;
+    margin:0.5rem 0.5rem;
+}
+
 .material-icons{
     vertical-align: middle;
     color:white;
@@ -117,7 +128,6 @@ export default {
     display:inline-block;
     vertical-align: bottom;
     border:none;
-    margin-top: 2.5em;
     border-radius: 100px;
     color:white;
 }

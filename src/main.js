@@ -29,9 +29,8 @@ const store = new Vuex.Store ({
       state.error = new_error;
     },
   },
-  actions: {
-    
-    async login(context, datos){
+  actions: {    
+    login(context, datos){
       firebase.auth().signInWithEmailAndPassword(datos.email, datos.password)
       .then(function (response){
         console.log(response);
@@ -45,7 +44,7 @@ const store = new Vuex.Store ({
       })
     },
 
-    async register(context, datos){
+    register(context, datos){
       firebase.auth().createUserWithEmailAndPassword(datos.email, datos.password)
       .then(function (response){
         console.log(response);
@@ -55,6 +54,7 @@ const store = new Vuex.Store ({
       })
       .catch(function (error){
         context.commit('set_error', error.message);
+        console.log(error);
         context.commit('set_user', null);
       })
     }
