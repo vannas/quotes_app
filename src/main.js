@@ -20,8 +20,8 @@ const store = new Vuex.Store ({
   },
   mutations: {
     //mutación para cambiar estado user
-    set_user(state, new_user){
-      state.user = new_user;
+    set_user(state, new_userid){
+      state.user = new_userid;
     },
 
     //mutación para cambiar estado error
@@ -34,22 +34,30 @@ const store = new Vuex.Store ({
       firebase.auth().signInWithEmailAndPassword(datos.email, datos.password)
       .then(function (response){
         console.log(response);
+
         context.commit('set_error', null);
-        context.commit('set_user', datos.email);
+        context.commit('set_user', {email: datos.email, name: datos.name});
         router.push('/');
       })
-      .catch(function(error){
+      .catch(function (error) {
         context.commit('set_error', error.message);
         context.commit('set_user', null);
-      })
+      })  
     },
 
     register(context, datos){
       firebase.auth().createUserWithEmailAndPassword(datos.email, datos.password)
       .then(function (response){
         console.log(response);
+        firebase.auth().currentUser.updateProfile({
+          displayName: datos.username
+        })
+      })
+      .then((response) => {
+        //guarda en almacén
+        console.log(response);
         context.commit('set_error', null);
-        context.commit('set_user', datos.email);
+        context.commit('set_user', {email: datos.email, name: datos.name});
         router.push('/');
       })
       .catch(function (error){

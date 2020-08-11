@@ -19,10 +19,6 @@ export default new VueRouter ({
             component: LoginRegistro
         },
         {
-            path: '/register',
-            component: LoginRegistro
-        },
-        {
             path: '*',
             component: E404
         }

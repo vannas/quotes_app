@@ -4,7 +4,7 @@
 
     <div class="card red white-text">
         <div class="card-title"> 
-            <h2>Welcome! {{user}} </h2>
+            <h2 v-if="user">Welcome {{ user.name }} !</h2>
         </div>
         <div class="card-body text-justify">
 
@@ -21,18 +21,20 @@
 </template>
 
 <script>
+import router from "@/router"
 import { db } from '../firebase';  //link to the firebase databank 
 
 export default {
     name: 'Home',
     data() {
         return {
-            users: []
+            users: [],
         }
     },
     methods: {
         logout() {
-            console.log('out of here')
+            console.log('out of here');
+            router.push('/login');
         }    
     },
     computed: {

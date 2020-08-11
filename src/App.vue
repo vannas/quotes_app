@@ -2,7 +2,7 @@
   <div id="app">    
     <nav>
       <div class="nav-wrapper" id="nav">
-        <a href="#" class="brand-logo right"><a href="" class="out">Log Out</a> <i class="large material-icons">pest_control_rodent</i></a>
+        <a href="#" class="brand-logo right"><router-link to="/login" class="out">Log Out</router-link> <i class="large material-icons">pest_control_rodent</i></a>
         <ul id="nav-mobile" class="left hide-on-med-and-down">
           <li><router-link to="/"><i class="large material-icons">house</i></router-link></li>
           <li><router-link to="/login"><i class="large material-icons">account_circle</i></router-link></li>
@@ -22,6 +22,11 @@
 export default {
   name: 'App',
   components: {
+  },
+  computed: {
+    user() {
+      return this.$store.state.user;
+    }
   }
 }
 </script>

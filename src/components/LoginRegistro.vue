@@ -36,7 +36,7 @@
         
         <form id="register" @submit.prevent="register" class="">            
             <label for="register_nom" class="grey-text validate">Username:</label>
-            <input type="text" id="register_nom" class="validate" required v-model="register_user"/>
+            <input type="text" id="register_nom" class="validate" required v-model="register_username"/>
             <br/>
             
             <label for="register_mail" class="grey-text validate">E-mail:</label>
@@ -70,7 +70,7 @@ export default {
         login_email: '',
         login_pass: '',
         //variables registro
-        register_user: '',
+        register_username: '',
         register_email: '',
         register_pass: '',
         register_confirm: ''
@@ -104,7 +104,7 @@ export default {
             }
             
             //ingresar usuario
-            const datos= {email: this.register_email, password: this.register_pass, user: this.register_user};
+            const datos= {email: this.register_email, password: this.register_pass, name: this.register_username};
             this.$store.dispatch('register', datos);
         }
     }
