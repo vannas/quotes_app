@@ -10,6 +10,8 @@
   "dependencies": {
     "core-js": "^3.6.5",
     "firebase": "^7.17.2",
+    "materialize-css": "^1.0.0-rc.2",
+    "serialize-javascript": "^4.0.0",
     "vue": "^2.6.11",
     "vue-firestore": "^0.3.30",
     "vue-router": "^3.4.2",

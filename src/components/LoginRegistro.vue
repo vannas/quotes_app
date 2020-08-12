@@ -90,7 +90,6 @@ export default {
             const datos_log={email: this.login_email, password: this.login_pass};
             this.$store.dispatch('login', datos_log);
         },
-
         register() {
             const confirm= document.getElementById('register_confirm');
             confirm.setCustomValidity('');

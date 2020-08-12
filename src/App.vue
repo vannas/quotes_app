@@ -2,11 +2,10 @@
   <div id="app">    
     <nav>
       <div class="nav-wrapper" id="nav">
-        <a href="#" class="brand-logo right"><router-link to="/login" class="out">Log Out</router-link> <i class="large material-icons">pest_control_rodent</i></a>
         <ul id="nav-mobile" class="left hide-on-med-and-down">
-          <li><router-link to="/"><i class="large material-icons">house</i></router-link></li>
+          <li v-if="$route.path != '/login'"><router-link to="/"><i class="large material-icons">house</i></router-link></li>
           <li><router-link to="/login"><i class="large material-icons">account_circle</i></router-link></li>
-          
+          <li><router-link to="/login" @click="logout"><i class="large material-icons out">pest_control_rodent</i>Exit</router-link></li> 
         </ul>
       </div>
     </nav>
@@ -17,7 +16,7 @@
 </template>
 
 <script>
-
+import firebase from 'firebase/app'
 
 export default {
   name: 'App',
@@ -27,6 +26,11 @@ export default {
     user() {
       return this.$store.state.user;
     }
+  },
+  methods: {
+    logout(){
+      firebase.auth().signOut();
+    },
   }
 }
 </script>
@@ -46,7 +50,8 @@ export default {
   background: linear-gradient(to center, #FFEDBC, #ED4264); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 
 }
-.out{
-  font-size: 16px;
+#nav li .out{
+  display: inline-block;
+  margin-right:0.5em;
 }
 </style>

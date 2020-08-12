@@ -33,10 +33,8 @@ const store = new Vuex.Store ({
     login(context, datos){
       firebase.auth().signInWithEmailAndPassword(datos.email, datos.password)
       .then(function (response){
-        console.log(response);
-
         context.commit('set_error', null);
-        context.commit('set_user', {email: datos.email, name: datos.name});
+        context.commit('set_user', {email: datos.email, name: response.user.displayName});
         router.push('/');
       })
       .catch(function (error) {
@@ -50,7 +48,7 @@ const store = new Vuex.Store ({
       .then(function (response){
         console.log(response);
         firebase.auth().currentUser.updateProfile({
-          displayName: datos.username
+          displayName: datos.name
         })
       })
       .then((response) => {
@@ -64,6 +62,15 @@ const store = new Vuex.Store ({
         context.commit('set_error', error.message);
         console.log(error);
         context.commit('set_user', null);
+      })
+    },
+
+    logout(context){
+      firebase.auth().signOut()
+      .then(() => {
+        context.commit('set_error', null);
+        context.commit('set_user', null);
+        router.push('/login');
       })
     }
   }
