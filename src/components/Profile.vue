@@ -4,7 +4,8 @@
             <div class="main">
                 <h3>Quotes Submitted By {{$route.params.name}}</h3>
 
-                <div class="card light-yellow darken-1" v-for="quote in user_quotes" :key="quote">
+                <p><h5>Total: {{total}}</h5>
+                <div class="card light-yellow darken-1" v-for="(quote, i) in user_quotes" :key="i">
                     <div class="card-content">
                         <h5 class="card-title red-text">{{quote.author}}</h5> said: "{{quote.message}}"
                     </div>
@@ -32,6 +33,9 @@ export default {
         user_quotes(){
             const id= this.$route.params.id
             return this.quotes.filter(quote => quote.poster_id == id)
+        },
+        total(){
+            return this.user_quotes.length
         }         
     },
     firestore() {           
