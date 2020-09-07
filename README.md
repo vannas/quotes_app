@@ -1,4 +1,4 @@
-# el-muro
+# Quote Central
 
 ## Project setup
 ```
